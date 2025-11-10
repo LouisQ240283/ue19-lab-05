@@ -62,4 +62,9 @@ jobs:
       - name: Aqua Security Trivy
         uses: aquasecurity/trivy-action@0.33.1 
         with:
-          scan-type: 'fs'
+          image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'

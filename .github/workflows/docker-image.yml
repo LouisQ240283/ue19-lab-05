@@ -1,13 +1,13 @@
-name: Docker Image CI
-
 on:
   push:
+    
     branches:
       - main
- 
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    
     
     permissions:
       contents: read
@@ -16,6 +16,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      
+      - name: Set Owner Lowercase
+        id: set_owner_lc
+        run: echo "OWNER_LC=${{ github.repository_owner | lower }}" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -32,8 +37,9 @@ jobs:
         with:
           context: .
           push: true
+          
           tags: |
-            ghcr.io/${{ github.repository_owner | lower }}/ue19-lab-05:latest
-            ghcr.io/${{ github.repository_owner | lower }}/ue19-lab-05:${{ github.sha }}
+            ghcr.io/${{ env.OWNER_LC }}/ue19-lab-05:latest
+            ghcr.io/${{ env.OWNER_LC }}/ue19-lab-05:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

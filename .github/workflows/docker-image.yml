@@ -61,3 +61,5 @@ jobs:
           
       - name: Aqua Security Trivy
         uses: aquasecurity/trivy-action@0.33.1 
+        with:
+          scan-type: 'fs'

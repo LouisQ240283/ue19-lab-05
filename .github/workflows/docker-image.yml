@@ -58,5 +58,6 @@ jobs:
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
           
+          
       - name: Aqua Security Trivy
         uses: aquasecurity/trivy-action@0.33.1 
